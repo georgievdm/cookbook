@@ -2,7 +2,7 @@
 Data Centric Development Project
 
 Your Project Name
- is a web application which allows users to store and easily access cooking recipes. Using the app the user is able to:
+is a web application which allows users to store and easily access cooking recipes. Using the app the user is able to:
 
 1. View a list of recipes
 2. Add a new recipe and add ingredients and method to the recipe
