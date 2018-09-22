@@ -4,50 +4,48 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
 app = Flask(__name__)
-app.config['MONGO_DBNAME'] = 'task_manager'
-app.config['MONGO_URI'] = 'mongodb://admin:admin123@ds217092.mlab.com:17092/task_manager'
+app.config['MONGO_DBNAME'] = 'recipe_manager'
+app.config['MONGO_URI'] = 'mongodb://admin:admin123@ds217092.mlab.com:17092/recipe_manager'
 
 mongo = PyMongo(app)
 
 @app.route('/')
-@app.route('/get_tasks')
-def get_tasks():
-    return render_template("tasks.html",
-    tasks=mongo.db.tasks.find())
+@app.route('/get_recipes')
+def get_recipes():
+    return render_template("recipes.html",
+    recipes=mongo.db.recipes.find())
 
-@app.route('/add_task')
-def add_task():
-    return render_template('addtask.html', categories=mongo.db.categories.find())
+@app.route('/add_recipe')
+def add_recipe():
+    return render_template('addrecipe.html', categories=mongo.db.categories.find())
 
-@app.route('/insert_task', methods=['POST'])
-def insert_task():
-    tasks = mongo.db.tasks
-    tasks.insert_one(request.form.to_dict())
-    return redirect(url_for('get_tasks'))
+@app.route('/insert_recipe', methods=['POST'])
+def insert_recipe():
+    recipes = mongo.db.recipes
+    recipes.insert_one(request.form.to_dict())
+    return redirect(url_for('get_recipes'))
 
-@app.route('/edit_task/<task_id>')
-def edit_task(task_id):
-    the_task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+@app.route('/edit_recipe/<recipe_id>')
+def edit_recipe(recipe_id):
+    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     all_categories = mongo.db.categories.find()
-    return render_template('edittask.html', task=the_task, categories=all_categories)
+    return render_template('editrecipe.html', recipe=the_recipe, categories=all_categories)
 
-@app.route('/update_task/<task_id>', methods=["POST"])
-def update_task(task_id):
-    tasks = mongo.db.tasks
-    tasks.update({'_id': ObjectId(task_id)},
+@app.route('/update_recipe/<recipe_id>', methods=["POST"])
+def update_recipe(recipe_id):
+    recipes = mongo.db.recipes
+    recipes.update({'_id': ObjectId(recipe_id)},
     {
-        'task_name': request.form.get['task_name'],
+        'recipe_name': request.form.get['recipe_name'],
         'category_name': request.form.get['category_name'],
-        'task_description': request.form.get['task_description'],
-        'due_date': request.form.get['due_date'],
-        'is_urgent': request.form.get['is_urgent'],
+        'recipe_method': request.form.get['recipe_method'],
     })
-    return redirect(url_for('get_tasks'))
+    return redirect(url_for('get_recipes'))
 
-@app.route('/delete_task/<task_id>')
-def delete_task(task_id):
-    mongo.db.tasks.remove({'_id': ObjectId(task_id)})
-    return redirect(url_for('get_tasks'))
+@app.route('/delete_recipe/<recipe_id>')
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    return redirect(url_for('get_recipes'))
 
 @app.route('/get_categories')
 def get_categories():
@@ -58,6 +56,13 @@ def get_categories():
 def edit_category(category_id):
     return render_template('editcategory.html',
     category=mongo.db.categories.find_one({'_id': ObjectId(category_id)}))
+
+@app.route('/update_category/<category_id>', methods=['POST'])
+def update_category(category_id):
+    mongo.db.categories.update(
+        {'_id': ObjectId(category_id)},
+        {'category_name': request.form.get['category_name']})
+    return redirect(url_for('get_categories'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP', '0.0.0.0'),
