@@ -1,7 +1,7 @@
-# cookbook
+# Cookbook
 Data Centric Development Project
 
-Your Project Name
+Your **Project Name**
 is a web application which allows users to store and easily access cooking recipes. Using the app the user is able to:
 
 1. View a list of recipes
@@ -9,9 +9,10 @@ is a web application which allows users to store and easily access cooking recip
 3. Manage static data like categories
 4. Edit and delete recipes
 
-UX
+##UX
 This web application has been designed for users who want to manage their recipes easily on an online application, accessible from any device with an internet connection. This has been achieved in my web application as users are able to create, edit and delete recipes in a straightforward and uncomplicated way.
 
+##User Stories
 Having interviewed three potential users I was able to gather the following user stories:
 
 As a user I would like this website to search for recipes with a theme for example by Occasions - Christmas, Halloween, birthdays. 

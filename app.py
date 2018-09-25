@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'recipe_manager'
-app.config['MONGO_URI'] = 'mongodb://admin:admin123@ds217092.mlab.com:17092/recipe_manager'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/recipe_manager'
 
 mongo = PyMongo(app)
 
@@ -51,6 +51,16 @@ def delete_recipe(recipe_id):
 def get_categories():
     return render_template('categories.html',
     categories=mongo.db.categories.find())
+
+@app.route('/add-category')
+def add_category():
+    return render_template('newcategory.html')
+
+@app.route('/add-category', methods=['POST'])
+def insert_category():
+    categories = mongo.db.categories
+    categories.insert_one(request.form.to_dict())
+    return redirect(url_for('get_categories'))
 
 @app.route('/edit_category/<category_id>')
 def edit_category(category_id):
