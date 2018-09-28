@@ -1,15 +1,5 @@
-.btn_small {
-    height: 24px;
-    width: 60px;
-    line-height: 24px;
-    margin: 5px 5px;
-    padding: 0 0.5em;
-}
-
-.recipe_header {
-    margin-top: 5px;
-}
 
 .nav-wrapper {
-height: 100px;
+    height: 300px;
+    background-image: url(static/cooking.jpg);
 }
