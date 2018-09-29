@@ -42,10 +42,21 @@ def update_recipe(recipe_id):
     })
     return redirect(url_for('get_recipes'))
 
+@app.route('/recipe/<recipe_id>')
+def view_recipe(recipe_id):
+    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template('recipe.html', recipe=the_recipe)
+
+
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     return redirect(url_for('get_recipes'))
+
+@app.route('/delete_category/<category_id>')
+def delete_category(category_id):
+    mongo.db.categories.remove({'_id': ObjectId(category_id)})
+    return redirect(url_for('get_categories'))
 
 @app.route('/get_categories')
 def get_categories():
@@ -78,3 +89,4 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP', '0.0.0.0'),
         port=int(os.environ.get('PORT', 8080)),
         debug=True)
+

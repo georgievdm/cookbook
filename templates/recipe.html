@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<h3>{{recipe.recipe_name}}</h3>
+<div class="row">
+    <div class="input-field col s12">
+        <i class="material-icons prefix">poll</i>
+        <label>Recipe Category</label>
+        <p>{{recipe.category_name}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <p>{{recipe.recipe_name}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <p>{{recipe.recipe_ingredients}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <p>{{recipe.recipe_method}}</p>
+    </div>
+</div>
+
+
+{% endblock %}
